@@ -1,0 +1,11 @@
+*log
+.idea/
+.idea_modules/
+target/*
+project/project/*
+project/target/*
+**/target/*
+cannonball-all.sh
+build
+cannonball-agent/src/main/resources/mapred-site.xml
+cannonball-dist/
