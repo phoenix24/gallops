@@ -1,6 +1,5 @@
 package controllers
 
-import play.api._
 import play.api.mvc._
 import commons.HelloCommons
 import features.HelloFeatures
@@ -9,8 +8,6 @@ import features.HelloFeatures
 object Application extends Controller {
 
   def index = Action {
-    println(HelloCommons.name)
-    println(HelloFeatures.name)
-    Ok(views.html.index("Your new application is ready."))
+    Ok(views.html.index(s"Your new application is ready : with ${HelloCommons.name} && ${HelloFeatures.name} dependencies."))
   }
 }

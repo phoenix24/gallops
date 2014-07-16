@@ -1,6 +1,7 @@
 import sbt._
 import sbt.Keys._
 import play.Project._
+import org.sbtidea.SbtIdeaPlugin._
 
 
 object Build extends Build {
@@ -28,9 +29,9 @@ object Build extends Build {
     )
   )
 
-  lazy val dashboard = play.Project("gallops-dashboard", "1,0-SNAPSHOT", path = file("gallops-dashboard"), settings = defaultSettings ++ Seq(
-     conflictWarning := ConflictWarning.disable,
-     libraryDependencies ++= Dependencies.dashboard
+  lazy val dashboard = play.Project("gallops-dashboard", "1,0-SNAPSHOT", path = file("gallops-dashboard"), settings = defaultSettings ++ playScalaSettings ++ Seq(
+    conflictWarning := ConflictWarning.disable,
+    libraryDependencies ++= Dependencies.dashboard
   )) dependsOn(commons, features) aggregate(commons, features)
 
   lazy val defaultSettings = Defaults.defaultSettings ++ Seq(
