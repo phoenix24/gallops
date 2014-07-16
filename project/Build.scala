@@ -9,30 +9,29 @@ object Build extends Build {
     id = "gallops",
     base = file("."),
     settings = defaultSettings,
-    aggregate = Seq(commons, features)
+    aggregate = Seq(commons, features, dashboard)
   )
 
   lazy val commons = Project(
     id = "gallops-commons",
     base = file("gallops-commons"),
-    settings = defaultSettings ++ Seq()
+    settings = defaultSettings ++ Seq(
+      libraryDependencies ++= Dependencies.commons
+    )
   )
 
   lazy val features = Project(
     id = "gallops-features",
     base = file("gallops-features"),
-    settings = defaultSettings ++ Seq()
+    settings = defaultSettings ++ Seq(
+      libraryDependencies ++= Dependencies.features
+    )
   )
 
-  lazy val dashboard = play.Project("gallops-dashboard", "1.0-snapshot", path = file("gallops-dashboard"), settings = defaultSettings ++ Seq(
-    conflictWarning := ConflictWarning.disable
+  lazy val dashboard = play.Project("gallops-dashboard", "1,0-SNAPSHOT", path = file("gallops-dashboard"), settings = defaultSettings ++ Seq(
+     conflictWarning := ConflictWarning.disable,
+     libraryDependencies ++= Dependencies.dashboard
   )) dependsOn(commons, features) aggregate(commons, features)
-
-
-  def getProjectVersion = System.getenv("GO_PIPELINE_LABEL") match {
-    case null => "0.1-SNAPSHOT"
-    case _ => System.getenv("GO_PIPELINE_LABEL")
-  }
 
   lazy val defaultSettings = Defaults.defaultSettings ++ Seq(
     scalaVersion := "2.10.3",
